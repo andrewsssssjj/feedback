@@ -129,9 +129,19 @@ document.getElementById("feedbackForm").addEventListener("submit", function(even
     const phoneNumber = "6288225343353"; // ubah ke nomor WA tujuan
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappURL, '_blank');
+
+    const data = { nama, alamat, wa, kemudahan: kemudahanValue, respon: responValue, saran };
+    fetch("https://script.google.com/macros/s/AKfycbwtdZrsW7GMrA-9u-8Aa2k_jknm3MBlp3r0f-IC2up1UyS_AOTpsRESeEFAw6S2DV_s/exec", { // ganti dengan URL Apps Script
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(res => console.log("Data berhasil masuk spreadsheet:", res))
+    .catch(err => console.error("Gagal kirim ke spreadsheet:", err));
 });
 </script>
 
 </body>
 
 </html>
+
